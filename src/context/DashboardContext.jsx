@@ -72,7 +72,7 @@ export const DashboardProvider = ({ children }) => {
 
   const fetchAstronauts = async () => {
     try {
-      const response = await axios.get('http://api.open-notify.org/astros.json');
+      const response = await axios.get('https://api.open-notify.org/astros.json');
       setIssData(prev => ({ ...prev, astronauts: response.data.people }));
     } catch (error) {
       console.error('Error fetching astronauts:', error);
