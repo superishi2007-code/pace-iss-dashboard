@@ -72,8 +72,13 @@ export const DashboardProvider = ({ children }) => {
 
   const fetchAstronauts = async () => {
     try {
-      const response = await axios.get('https://api.open-notify.org/astros.json');
-      setIssData(prev => ({ ...prev, astronauts: response.data.people }));
+      // Using The Space Devs API which is reliable over HTTPS
+      const response = await axios.get('https://ll.thespacedevs.com/2.2.0/astronaut/?in_space=true');
+      const astronauts = response.data.results.map(person => ({
+        name: person.name,
+        craft: person.in_space_at || 'ISS' // Mapping if craft isn't explicitly 'craft'
+      }));
+      setIssData(prev => ({ ...prev, astronauts }));
     } catch (error) {
       console.error('Error fetching astronauts:', error);
     }
